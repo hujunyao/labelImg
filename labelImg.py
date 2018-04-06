@@ -762,7 +762,8 @@ class MainWindow(QMainWindow, WindowMixin):
                                                    self.lineColor.getRgb(), self.fillColor.getRgb())
             elif self.usingYoloFormat is True:
                 annotationFilePath += TXT_EXT
-                print ('Img: ' + self.filePath + ' -> Its txt: ' + annotationFilePath)                
+                print ('Img: ' + self.filePath + ' -> Its txt: ' + annotationFilePath) 
+                print('labels'+str(self.labelHist))                
                 self.labelFile.saveYoloFormat(annotationFilePath, shapes, self.filePath, self.imageData, self.labelHist,
                                                    self.lineColor.getRgb(), self.fillColor.getRgb())
             else:
@@ -833,6 +834,8 @@ class MainWindow(QMainWindow, WindowMixin):
 
             if text not in self.labelHist:
                 self.labelHist.append(text)
+                if self.usingYoloFormat:
+                    self.errorMessage(u"label error",u"New label Occur, first predefClassFile!")
         else:
             # self.canvas.undoLastLine()
             self.canvas.resetAllLines()
