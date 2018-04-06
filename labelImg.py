@@ -1127,6 +1127,7 @@ class MainWindow(QMainWindow, WindowMixin):
                 if isinstance(filename, (tuple, list)):
                     filename = filename[0]
             self.loadPascalXMLByFilename(filename)
+        
         if self.usingYoloFormat:
             filters = "Open Annotation txt file (%s)" % ' '.join(['*.txt'])
             filename = ustr(QFileDialog.getOpenFileName(self,'%s - Choose a txt file' % __appname__, path, filters))
@@ -1149,6 +1150,13 @@ class MainWindow(QMainWindow, WindowMixin):
                                                      '%s - Open Directory' % __appname__, defaultOpenDirPath,
                                                      QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks))
         self.importDirImages(targetDirPath)
+        classesname = targetDirPath +"/classes.txt"
+        print("class name" + classesname)                
+        if (os.path.exists(classesname)):
+            self.labelHist = []
+            self.loadPredefinedClasses(classesname)
+            self.labelDialog = LabelDialog(parent=self, listItem=self.labelHist)
+
 
     def importDirImages(self, dirpath):
         if not self.mayContinue() or not dirpath:
