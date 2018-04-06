@@ -761,8 +761,8 @@ class MainWindow(QMainWindow, WindowMixin):
                 self.labelFile.savePascalVocFormat(annotationFilePath, shapes, self.filePath, self.imageData,
                                                    self.lineColor.getRgb(), self.fillColor.getRgb())
             elif self.usingYoloFormat is True:
-                #annotationFilePath += TXT_EXT
-                print ('Img: ' + self.filePath + ' -> Its txt: ' + annotationFilePath)
+                annotationFilePath += TXT_EXT
+                print ('Img: ' + self.filePath + ' -> Its txt: ' + annotationFilePath)                
                 self.labelFile.saveYoloFormat(annotationFilePath, shapes, self.filePath, self.imageData, self.labelHist,
                                                    self.lineColor.getRgb(), self.fillColor.getRgb())
             else:
@@ -1124,6 +1124,13 @@ class MainWindow(QMainWindow, WindowMixin):
                 if isinstance(filename, (tuple, list)):
                     filename = filename[0]
             self.loadPascalXMLByFilename(filename)
+        if self.usingYoloFormat:
+            filters = "Open Annotation txt file (%s)" % ' '.join(['*.txt'])
+            filename = ustr(QFileDialog.getOpenFileName(self,'%s - Choose a txt file' % __appname__, path, filters))
+            if filename:
+                if isinstance(filename, (tuple, list)):
+                    filename = filename[0]
+            self.loadYOLOTXTByFilename(filename)
 
     def openDirDialog(self, _value=False, dirpath=None):
         if not self.mayContinue():
@@ -1245,7 +1252,7 @@ class MainWindow(QMainWindow, WindowMixin):
             imgFileName = os.path.basename(self.filePath)
             savedFileName = os.path.splitext(imgFileName)[0]
             savedPath = os.path.join(imgFileDir, savedFileName)
-            self._saveFile(savedPath if self.labelFile
+            self._saveFile(savedPath if None
                            else self.saveFileDialog())
 
     def saveFileAs(self, _value=False):
