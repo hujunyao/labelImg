@@ -1364,7 +1364,7 @@ class MainWindow(QMainWindow, WindowMixin):
 
     def loadPredefinedClasses(self, predefClassesFile):
         if os.path.exists(predefClassesFile) is True:
-            with codecs.open(predefClassesFile, 'r', 'utf8') as f:
+            with codecs.open(predefClassesFile, 'r', 'gbk') as f:
                 for line in f:
                     line = line.strip()
                     if self.labelHist is None:
