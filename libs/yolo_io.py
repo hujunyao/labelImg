@@ -2,6 +2,7 @@
 # -*- coding: utf8 -*-
 import sys
 import os
+import re
 from xml.etree import ElementTree
 from xml.etree.ElementTree import Element, SubElement
 from lxml import etree
@@ -133,7 +134,9 @@ class YoloReader:
     def parseYoloFormat(self):
         bndBoxFile = open(self.filepath, 'r')
         for bndBox in bndBoxFile:
-            classIndex, xcen, ycen, w, h = bndBox.split(' ')
+            #classIndex, xcen, ycen, w, h = bndBox.split(' ')
+            classIndex, xcen, ycen, w, h = re.split('\t| ',bndBox)
+
             label, xmin, ymin, xmax, ymax = self.yoloLine2Shape(classIndex, xcen, ycen, w, h)
 
             # Caveat: difficult flag is discarded when saved as yolo format.
