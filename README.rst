@@ -87,19 +87,21 @@ Python 3 + Qt5 (Works on macOS High Sierra)
 **NEW** Python 3 Virtualenv + Binary  
 This avoids a lot of the QT / Python version issues,
 and gives you a nice .app file with a new SVG Icon
-in your /Applications folder.
+in your /Applications folder. You can consider this script: build-tools/build-for-macos.sh
 
 .. code::
+    
     
     brew install python3
     pip install pipenv
     pipenv --three
     pipenv shell
-    pip install pyqt5 lxml
+    pip install py2app
+    pip install PyQt5 lxml
     make qt5py3
     rm -rf build dist
-    python setup.py py2app
-    cp -rf dist/labelImg.app /Applications
+    python setup.py py2app -A
+    mv "dist/labelImg.app" /Applications
 
 Windows
 ^^^^^^^
@@ -109,7 +111,7 @@ later <https://www.python.org/downloads/windows/>`__,
 `PyQt4 <https://www.riverbankcomputing.com/software/pyqt/download>`__
 and `install lxml <http://lxml.de/installation.html>`__.
 
-Open cmd and go to `labelImg <#labelimg>`__ directory
+Open cmd and go to the `labelImg <#labelimg>`__ directory
 
 .. code::
 
@@ -117,17 +119,17 @@ Open cmd and go to `labelImg <#labelimg>`__ directory
     python labelImg.py
     python labelImg.py [IMAGE_PATH] [PRE-DEFINED CLASS FILE]
     
-Windows + anaconda
+Windows + Anaconda
 ^^^^^^^
 
-Download and install anaconda (python 3+)
+Download and install `Anaconda <https://www.anaconda.com/download/#download>`__ (Python 3+)
 
-Open cmd and go to `labelImg <#labelimg>`__ directory
+Open the Anaconda Prompt and go to the `labelImg <#labelimg>`__ directory
 
 .. code::
 
-    conda install pyqt=4
-    pyrcc4 -py3 -o resources.py resources.qrc
+    conda install pyqt=5
+    pyrcc5 -o resources.py resources.qrc
     python labelImg.py
     python labelImg.py [IMAGE_PATH] [PRE-DEFINED CLASS FILE]
 
