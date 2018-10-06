@@ -79,5 +79,5 @@ def generateColorByText(text):
     hashCode = int(hashlib.sha256(s.encode('utf-8')).hexdigest(), 16)
     r = int((hashCode // 255) % 255)
     g = int((hashCode // 65025)  % 255)
-    b = int((hashCode // 16581375)  % 255)
+    b = int((hashCode // 16581375)  % 255 )    
     return QColor(0, 0, 255, 170)
